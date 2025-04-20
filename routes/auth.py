@@ -16,4 +16,15 @@ def register():
     db.session.add(user)
     db.session.commit()
     
+@auth_bp.route('/login',methods=['POST'])
+def login():
+    data = request.get_json()
+    nickname = data.get('nickname')
+    password = data.get('password')
+    user = Users.query.filter_by(nickname=nickname).first()
 
+    if user and user.check_password(password):
+        token = create_access_token(identity=user.id)
+        return jsonify({"token":token}),200
+    else:
+        return jsonify({'msg':'Invalid Credentials'}),401
