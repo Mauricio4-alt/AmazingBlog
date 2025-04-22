@@ -16,4 +16,5 @@ def create_post():
     post =BlogPost(title=title,content=content,user_id=user_id)
     db.session.add(post)
     db.session.commit()
+    return jsonify({'msg':'Post created succefull'}),201
 
