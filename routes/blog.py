@@ -5,7 +5,7 @@ from models import BlogPost,db, Users
 blog_bp_routh = Blueprint('blog',__name__)
 
 @blog_bp_routh('/post',methods=['POST'])
-@jwt_required
+@jwt_required()
 def create_post():
     data = request.get_json()
     title = data.get('title')
@@ -19,7 +19,7 @@ def create_post():
     return jsonify({'msg':'Post created succefull'}),201
 
 
-@blog_bp_routh.route('post')
+@blog_bp_routh.route('/post')
 def get_post():
     posts = BlogPost.query.all()
     results = []
