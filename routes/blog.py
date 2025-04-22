@@ -19,3 +19,14 @@ def create_post():
     return jsonify({'msg':'Post created succefull'}),201
 
 
+@blog_bp_routh.route('post')
+def get_post():
+    posts = BlogPost.query.all()
+    results = []
+    for post in posts:
+        results.append({
+            'title':post.title,
+            'content':post.content,
+            'user_id':post.user_id
+        })
+    return jsonify(results),200
